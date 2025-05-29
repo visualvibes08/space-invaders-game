@@ -40,7 +40,7 @@ for i in range (0,n):
     enemyImg.append(load_img("enemy.png"))
     enemyX.append(random.randint(0,800))
     enemyY.append(random.randint(50,150))
-    enemyX_change.append(2)
+    enemyX_change.append(4)
     enemyY_change.append(40)
 
 # Bullet
@@ -48,7 +48,7 @@ bulletImg=load_img("bullet.png")
 bulletX=0
 bulletY=480
 bulletX_change=0
-bulletY_change=10
+bulletY_change=12
 bullet_state="ready"
 
 # socre
@@ -168,11 +168,11 @@ while running:
 
             enemyX[i]+=enemyX_change[i]
             if enemyX[i] <= 5:
-                    enemyX_change[i] = 2
+                    enemyX_change[i] = 4
                     enemyY[i]+=enemyY_change[i]
             elif enemyX[i] >= 736:
                 enemyX[i]= 736
-                enemyX_change[i]=-2
+                enemyX_change[i]=-4
                 enemyY[i]+=enemyY_change[i]
 
         # Bullet movement
