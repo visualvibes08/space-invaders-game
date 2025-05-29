@@ -65,7 +65,7 @@ This project helped me take my first step into coding interactive games — and 
 
 ---
 
-## 📁 Project Structure (Optional)
+## 📁 Project Structure
 
 ```bash
 .
