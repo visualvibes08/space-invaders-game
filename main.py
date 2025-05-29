@@ -61,8 +61,6 @@ global high_score
 high_score=0
 global bool_new_score
 
-
-
 # Game over
 over_font=pygame.font.Font('freesansbold.ttf',68)
 more_font=pygame.font.SysFont('Times New Roman', 32, bold=True)
