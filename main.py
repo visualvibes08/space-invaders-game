@@ -36,11 +36,12 @@ enemyY=[]
 n=6
 enemyY_change=[]
 enemyX_change=[]
+speed=4
 for i in range (0,n):    
     enemyImg.append(load_img("enemy.png"))
     enemyX.append(random.randint(0,800))
     enemyY.append(random.randint(50,150))
-    enemyX_change.append(4)
+    enemyX_change.append(speed)
     enemyY_change.append(40)
 
 # Bullet
@@ -168,11 +169,11 @@ while running:
 
             enemyX[i]+=enemyX_change[i]
             if enemyX[i] <= 5:
-                    enemyX_change[i] = 4
+                    enemyX_change[i] = speed
                     enemyY[i]+=enemyY_change[i]
             elif enemyX[i] >= 736:
                 enemyX[i]= 736
-                enemyX_change[i]=-4
+                enemyX_change[i]=-speed
                 enemyY[i]+=enemyY_change[i]
 
         # Bullet movement
