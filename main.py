@@ -9,6 +9,10 @@ pygame.init()
 # create the screen
 screen = pygame.display.set_mode((800, 600))
 
+# Create clock object for controlling frame rate
+clock = pygame.time.Clock()
+FPS = 60  # Set desired frame rate
+
 # screen Title and icon
 pygame.display.set_caption("Space Invaders")
 icon=load_img("ufo.png")
@@ -128,7 +132,16 @@ screen=pygame.display.set_mode((800,600))
 
 # game Loop
 running=True
+# Pre-calculate some values outside the loop
+PLAYER_BOUNDARY_LEFT = 0
+PLAYER_BOUNDARY_RIGHT = 736
+ENEMY_BOUNDARY_LEFT = 5
+ENEMY_BOUNDARY_RIGHT = 736
+BULLET_RESET_Y = 480
+
 while running:
+    # Control frame rate
+    clock.tick(FPS)
 
     screen.fill((0,0,0))
     screen.blit(background,(0,0))
@@ -154,10 +167,11 @@ while running:
 
         playerX+=player_change
 
-        if playerX <= 0:
-                playerX = 0
-        elif playerX >= 736:
-            playerX = 736    
+        # Optimize boundary checks using pre-calculated values
+        if playerX <= PLAYER_BOUNDARY_LEFT:
+                playerX = PLAYER_BOUNDARY_LEFT
+        elif playerX >= PLAYER_BOUNDARY_RIGHT:
+            playerX = PLAYER_BOUNDARY_RIGHT    
 
         for i in range (n):
             # game over
@@ -168,11 +182,11 @@ while running:
                     enemyY[j]=2000
 
             enemyX[i]+=enemyX_change[i]
-            if enemyX[i] <= 5:
+            if enemyX[i] <= ENEMY_BOUNDARY_LEFT:
                     enemyX_change[i] = speed
                     enemyY[i]+=enemyY_change[i]
-            elif enemyX[i] >= 736:
-                enemyX[i]= 736
+            elif enemyX[i] >= ENEMY_BOUNDARY_RIGHT:
+                enemyX[i]= ENEMY_BOUNDARY_RIGHT
                 enemyX_change[i]=-speed
                 enemyY[i]+=enemyY_change[i]
 
@@ -181,14 +195,14 @@ while running:
              fire_bullet(bulletX,bulletY)
              bulletY+= -bulletY_change
         if bulletY<=0:
-             bulletY=480
+             bulletY=BULLET_RESET_Y
              bullet_state="ready"
 
         # collison detection
         for i in range(n):
             collision=isCollision(enemyX[i],enemyY[i],bulletX,bulletY)
             if collision:
-                bulletY=480
+                bulletY=BULLET_RESET_Y
                 bullet_state="ready"
                 score+=1
                 play_sfx("explosion.wav")            
